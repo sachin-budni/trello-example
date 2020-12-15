@@ -22,5 +22,13 @@
       }
     }
   },
-  "projects": {}
+  "projects": {
+    "trello": {
+      "tags": []
+    },
+    "trello-e2e": {
+      "tags": [],
+      "implicitDependencies": ["trello"]
+    }
+  }
 }
