@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { RemoveTrello, UpdateTrello } from '../actions/trello.actions';
+import { AddTrelloListOfList, RemoveTrello, UpdateTrello } from '../actions/trello.actions';
 import { AddTrelloList, RemoveTrelloListById } from '../actions/trelloList.actions';
 import { CreateTrelloListComponent } from '../create-trello-list/create-trello-list.component';
 import { CreateTrelloComponent } from '../create-trello/create-trello.component';
@@ -27,19 +27,16 @@ export class TrelloListComponent implements OnInit {
   }
 
   addTrello(value: TrelloList, trelloId: number) {
-    value.id = 100;
-    value.trelloId = trelloId;
-    this.store.dispatch(new AddTrelloList(value));
+    this.store.dispatch(new AddTrelloListOfList(trelloId, value));
   }
 
   deleteCard(id: number) {
     this.store.dispatch(new RemoveTrello(id));
-    this.store.dispatch(new RemoveTrelloListById(id));
   }
   addCard(id: number) {
     this.dialog.open(CreateTrelloListComponent, {
       width: "300px",
-      data: { trelloId: id } as TrelloList
+      data: { id } as Trello
     })
   }
 
@@ -52,7 +49,8 @@ export class TrelloListComponent implements OnInit {
     }
     const data: Trello = {
       id: value.id,
-      name: name
+      name: name,
+      memberDetails: value.memberDetails
     }
     this.store.dispatch(new UpdateTrello(data));
   }

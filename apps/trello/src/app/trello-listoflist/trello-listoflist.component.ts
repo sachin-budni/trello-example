@@ -3,9 +3,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { AddTrelloListOfList, RemoveTrelloListOfList } from '../actions/trello.actions';
 import { RemoveTrelloList, UpdateTrelloList } from '../actions/trelloList.actions';
 import { CreateTrelloListComponent } from '../create-trello-list/create-trello-list.component';
-import { selectVisibleBooks, TrelloList } from '../models/trelloList.model';
+import { Trello } from '../models/trello.model';
+import { TrelloList } from '../models/trelloList.model';
 import { AppState } from './../app.state';
 
 interface DropListData {
@@ -27,12 +29,10 @@ interface TransferData {
   styleUrls: ['./trello-listoflist.component.scss']
 })
 export class TrelloListoflistComponent implements OnInit {
-  @Input() trelloId: string;
-  trelloListOfList: Observable<TrelloList[]>;
+  @Input() trelloListOfList: Trello;
   constructor(private store: Store<AppState>, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.trelloListOfList = this.store.select(selectVisibleBooks(parseInt(this.trelloId))) as Observable<TrelloList[]>;
   }
   edit(value: TrelloList) {
     this.openDialog(value);
@@ -41,25 +41,26 @@ export class TrelloListoflistComponent implements OnInit {
   openDialog(value: TrelloList) {
     this.dialog.open(CreateTrelloListComponent, {
       width: '300px',
-      data: value
+      data: { id: this.trelloListOfList.id, memberDetails: [value] } as Trello
     })
   }
 
   deleteTrelloList(id: number) {
-    this.store.dispatch(new RemoveTrelloList(id));
+    this.store.dispatch(new RemoveTrelloListOfList(this.trelloListOfList.id, id));
   }
 
   drop({
-    item
+    item,
+    container,
+    previousContainer
   }: CdkDragDrop<any>) {
-    console.log(this.trelloId)
     let data: TrelloList = item.data;
-    let dropped:TrelloList = {
-      id: data.id,
-      name: data.name,
-      trelloId: parseInt(this.trelloId)
+    let prevId: number = previousContainer.data;
+    let newId: number = container.data;
+    if (prevId !== newId) {
+      this.store.dispatch(new AddTrelloListOfList(newId, data));
+      this.store.dispatch(new RemoveTrelloListOfList(prevId, data.id));
     }
-    this.store.dispatch(new UpdateTrelloList(dropped));
   }
 
 

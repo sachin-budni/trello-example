@@ -35,7 +35,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     BrowserModule,
     RouterModule.forRoot([], { initialNavigation: 'enabled' }),
     StoreModule.forRoot(
-      { trello: reducer, trelloList: reducerTrelloList },
+      { trello: reducer},
       {
         metaReducers: !environment.production ? [] : [],
         runtimeChecks: {

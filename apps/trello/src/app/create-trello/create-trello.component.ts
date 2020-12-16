@@ -27,7 +27,8 @@ export class CreateTrelloComponent implements OnInit {
     if(value.name === '' || value.name === undefined || value.name === null) {
       return false;
     }
-    value.id = Math.floor((Math.random()*1000000)+1);;
+    value.id = Math.floor((Math.random()*1000000)+1);
+    value.memberDetails = []
     this.store.dispatch(new AddTrello(value));
     this.close();
   }

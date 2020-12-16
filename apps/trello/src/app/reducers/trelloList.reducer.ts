@@ -5,18 +5,15 @@ import * as TrelloActions from './../actions/trelloList.actions';
 const initialState: TrelloList[] = [
     {
         name: 'One-One',
-        id: 1,
-        trelloId: 1
+        id: 1
     },
     {
         name: 'One-Two',
-        id: 2,
-        trelloId: 1
+        id: 2
     },
     {
         name: 'One-Three',
-        id: 3,
-        trelloId: 2
+        id: 3
     }
 ]
 
@@ -29,8 +26,7 @@ export function reducerTrelloList(state: TrelloList[] = initialState, action: Tr
                 if(item.id === action.playoad.id) {
                     const updateData: TrelloList = {
                         id: action.playoad.id,
-                        name:action.playoad.name,
-                        trelloId: action.playoad.trelloId
+                        name:action.playoad.name
                     }
                     return updateData;
                 }
@@ -40,7 +36,7 @@ export function reducerTrelloList(state: TrelloList[] = initialState, action: Tr
         case TrelloActions.REMOVE_TRELLOLIST :
             return state.filter(t =>t.id !== action.playoad)
         case TrelloActions.REMOVE_TRELLOLISTBYTRELLOID :
-            return state.filter(t =>t.trelloId !== action.playoad);
+            return state.filter(t =>t.id !== action.playoad);
         default: 
             return state;
     }

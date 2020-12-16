@@ -2,9 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { AddTrelloList, UpdateTrelloList } from '../actions/trelloList.actions';
+import { AddTrelloListOfList, UpdateTrelloListOfList } from './../actions/trello.actions';
 import { AppState } from '../app.state';
+import { Trello } from '../models/trello.model';
 import { TrelloList } from '../models/trelloList.model';
+import { UpdateTrelloList } from '../actions/trelloList.actions';
 
 @Component({
   selector: 'trello-workspace-create-trello-list',
@@ -16,16 +18,16 @@ export class CreateTrelloListComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<CreateTrelloListComponent>,
     private store: Store<AppState>,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: TrelloList) { }
+    @Inject(MAT_DIALOG_DATA) public data: Trello) { }
 
   ngOnInit(): void {
     this.trelloListOfListFormGroup = this.fb.group({
       name:['', Validators.required]
     })
-    console.log(this.data)
-    if(this.data && this.data.trelloId) {
-      if(this.data.id) {
-        this.trelloListOfListFormGroup.controls['name'].setValue(this.data.name);
+    if(this.data && this.data.id) {
+      if(this.data.memberDetails && this.data.memberDetails.length !== 0) {
+        const name = this.data.memberDetails[0].name
+        this.trelloListOfListFormGroup.controls['name'].setValue(name);
       }
     }
   }
@@ -37,19 +39,20 @@ export class CreateTrelloListComponent implements OnInit {
       return false;
     }
     let addFlag = false;
-    if (!this.data.id) {
-      this.data.id =  Math.floor((Math.random()*1000000)+1);
+    if (!(this.data && this.data.memberDetails && this.data.memberDetails.length !== 0)) {
       addFlag = true;
     }
-    let trelloList: TrelloList = {
-      id: this.data.id,
-      name: value.name,
-      trelloId: this.data.trelloId
-    }
     if(addFlag) {
-      this.store.dispatch(new AddTrelloList(trelloList));
+      let trelloList: TrelloList = {
+        id: Math.floor((Math.random()*1000000)+1),
+        name: value.name
+      }
+      this.store.dispatch(new AddTrelloListOfList(this.data.id, trelloList));
     } else {
-      this.store.dispatch(new UpdateTrelloList(trelloList));
+      this.store.dispatch(new UpdateTrelloListOfList(this.data.id , {
+        id: this.data.memberDetails[0].id,
+        name: value.name
+      }));
     }
     // this.data.name = value.name;
     this.close()
