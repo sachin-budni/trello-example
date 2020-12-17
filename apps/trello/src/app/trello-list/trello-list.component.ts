@@ -52,10 +52,6 @@ export class TrelloListComponent implements OnInit {
     }
     this.store.dispatch(new UpdateTrello(data));
   }
-
-  drop(evnet) {
-    console.log('---', evnet);
-  }
   createTrello() {
     this.dialog.open(CreateTrelloComponent, { width: '300px' });
   }

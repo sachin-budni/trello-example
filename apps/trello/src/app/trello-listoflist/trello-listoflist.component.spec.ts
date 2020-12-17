@@ -43,4 +43,10 @@ describe('TrelloListoflistComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should edite card', () => {
+    expect(component.edit({ id: 2, name:'sasd' })).toBeCalled();
+  });
+  it('should delete trello card', () => {
+    expect(component.deleteTrelloList(2)).toBeCalled();
+  });
 });

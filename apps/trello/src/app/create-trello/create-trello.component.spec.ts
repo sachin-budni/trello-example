@@ -46,4 +46,15 @@ describe('CreateTrelloComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call', () => {
+    expect(component.addTrelloList({name: 'sachin', id: undefined, memberDetails: undefined})).toBeCalled();
+  });
+
+  it('should close() call', () => {
+    expect(component.addTrelloList({name: 'sachin', id: undefined, memberDetails: undefined})).toBeCalled();
+  });
+  it('should call', () => {
+    expect(component.close()).toBeCalled();
+  });
 });

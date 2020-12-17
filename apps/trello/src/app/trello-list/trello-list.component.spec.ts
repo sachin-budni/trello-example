@@ -46,6 +46,18 @@ describe('TrelloListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should Create trello', () => {
+    expect(component.createTrello()).toBeCalled();
+  });
+  it('should Add card', () => {
+    expect(component.addCard(1)).toBeCalled();
+  });
+  it('should delete card', () => {
+    expect(component.deleteCard(1)).toBeCalled();
+  });
+  it('should create card', () => {
+    expect(component.addTrello({ id: 423423, name: 'new card' } ,1)).toBeCalled();
+  });
   // it('should show TEST INPUT', () => {
   //   // expect(fixture.nativeElement.querySelector('div').innerText).toEqual('TEST INPUT');
   // });

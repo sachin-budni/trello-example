@@ -45,4 +45,8 @@ describe('CreateTrelloListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call addTrelloList', () => {
+    expect(component.addTrelloList({ name: 'sachin', id: undefined })).toBeCalled();
+  });
 });
