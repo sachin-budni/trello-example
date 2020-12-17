@@ -10,13 +10,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TrelloListoflistComponent } from './trello-listoflist/trello-listoflist.component';
+import {HarnessLoader} from '@angular/cdk/testing';
+import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
 
+let loader: HarnessLoader;
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, BrowserAnimationsModule, MatCardModule,
+      imports: [
+        RouterTestingModule,
+        BrowserAnimationsModule, 
+        MatCardModule,
         MatButtonModule,
         MatIconModule,
         ReactiveFormsModule,
@@ -25,29 +32,16 @@ describe('AppComponent', () => {
         MatFormFieldModule,
         MatToolbarModule,
         MatDialogModule,
-        DragDropModule],
-      declarations: [AppComponent, TrelloListComponent],
+        DragDropModule
+      ],
+      declarations: [AppComponent, TrelloListComponent, TrelloListoflistComponent]
     }).compileComponents();
   });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
+    loader = TestbedHarnessEnvironment.loader(fixture);
     expect(app).toBeTruthy();
   });
-
-  // it(`should have as title 'trello'`, () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   const app = fixture.componentInstance;
-  //   expect(app.title).toEqual('trello');
-  // });
-
-  // it('should render title', () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   fixture.detectChanges();
-  //   const compiled = fixture.nativeElement;
-  //   expect(compiled.querySelector('h1').textContent).toContain(
-  //     'Welcome to trello!'
-  //   );
-  // });
 });

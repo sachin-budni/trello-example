@@ -1,10 +1,8 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AddTrelloListOfList, RemoveTrello, UpdateTrello } from '../actions/trello.actions';
-import { AddTrelloList, RemoveTrelloListById } from '../actions/trelloList.actions';
 import { CreateTrelloListComponent } from '../create-trello-list/create-trello-list.component';
 import { CreateTrelloComponent } from '../create-trello/create-trello.component';
 import { Trello } from '../models/trello.model';

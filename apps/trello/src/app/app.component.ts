@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Optional } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTrelloComponent } from './create-trello/create-trello.component';
 
@@ -14,5 +14,5 @@ export class AppComponent {
 
   createTrello() {
     this.dialog.open(CreateTrelloComponent, { width: '300px' });
-  }
+  } 
 }
