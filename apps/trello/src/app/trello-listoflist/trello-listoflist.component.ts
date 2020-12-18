@@ -58,7 +58,7 @@ export class TrelloListoflistComponent implements OnInit {
     let prevId: number = previousContainer.data;
     let newId: number = container.data;
     if (prevId !== newId) {
-      this.store.dispatch(new AddTrelloListOfList(newId, data));
+      this.store.dispatch(new AddTrelloListOfList(newId, data, currentIndex));
       this.store.dispatch(new RemoveTrelloListOfList(prevId, data.id));
     } else {
       console.log(currentIndex);

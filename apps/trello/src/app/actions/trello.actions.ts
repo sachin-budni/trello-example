@@ -20,7 +20,7 @@ export class AddTrello implements Action {
 export class AddTrelloListOfList implements Action {
     readonly type = ADD_TRELLOLISTOFLIST;
 
-    constructor(public id: number, public playoad: TrelloList){ }
+    constructor(public id: number, public playoad: TrelloList, public index?:number){ }
 }
 export class UpdateTrelloListOfList implements Action {
     readonly type = UPDATE_TRELLOLISTOFLIST;

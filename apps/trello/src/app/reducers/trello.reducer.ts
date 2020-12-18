@@ -52,8 +52,14 @@ export function reducer(state: Trello[] = initialState, action: TrelloActions.Ac
         case TrelloActions.ADD_TRELLO :
             return [...state, action.playoad];
         case TrelloActions.ADD_TRELLOLISTOFLIST :
-            const mems = state.filter(s => s.id === action.id)[0].memberDetails;
-            const l = [...mems, action.playoad];
+            const mems = state.filter(s => s.id === action.id)[0].memberDetails.map(d => d);
+            let l = [];
+            if(typeof action.index === "number") {
+                mems.splice(action.index, 0, action.playoad);
+                l = mems;
+            } else {
+                l = [...mems, action.playoad];
+            }
             return state.map(item => {
                 if(item.id === action.id) {
                     const updateData: Trello = {
