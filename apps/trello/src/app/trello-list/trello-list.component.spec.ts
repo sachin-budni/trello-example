@@ -32,7 +32,7 @@ describe('TrelloListComponent', () => {
         MatDialogModule,
         DragDropModule
       ],
-      declarations: [TrelloListComponent],
+      declarations: [TrelloListComponent, TrelloListoflistComponent],
     })
     .compileComponents();
   });

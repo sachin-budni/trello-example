@@ -5,7 +5,7 @@
         <p contenteditable="true" class="header-card-name" (blur)="updateName($event, trello)">{{trello.name}}</p>
         <button class="btn-icon m-10" (click)="deleteCard(trello.id)"><mat-icon>close</mat-icon></button>
       </div>
-      <!-- <trello-workspace-trello-listoflist [trelloListOfList]="trello"></trello-workspace-trello-listoflist> -->
+      <trello-workspace-trello-listoflist [trelloListOfList]="trello"></trello-workspace-trello-listoflist>
       <div class="row">
         <button class="btn-icon m-10" (click)="addCard(trello.id)"><mat-icon>add</mat-icon> Add a card</button>
       </div>
