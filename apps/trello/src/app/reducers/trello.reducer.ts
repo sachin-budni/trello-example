@@ -35,7 +35,19 @@ const initialState: Trello[] = [
     }
 ]
 
+function array_move(arr, old_index, new_index) {
+    if (new_index >= arr.length) {
+        var k = new_index - arr.length + 1;
+        while (k--) {
+            arr.push(undefined);
+        }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+    return arr; // for testing
+}
+
 export function reducer(state: Trello[] = initialState, action: TrelloActions.Actions) {
+
     switch(action.type) {
         case TrelloActions.ADD_TRELLO :
             return [...state, action.playoad];
@@ -102,6 +114,23 @@ export function reducer(state: Trello[] = initialState, action: TrelloActions.Ac
                 return item;
             })
             return [...data3];
+        case TrelloActions.UPDATE_TRELLOLISTOFLISTSAME :
+            let com = [];
+            let index = action.index;
+            let prevIndex = action.preIn;
+            const members = array_move(state.find(s => s.id === action.id).memberDetails.map(d => d), prevIndex, index);
+            
+            return state.map(item => {
+                if(item.id === action.id) {
+                    const updateData: Trello = {
+                        id: action.id,
+                        name: item.name,
+                        memberDetails: members
+                    }
+                    return updateData;
+                }
+                return item;
+            });
         default: 
             return state;
     }

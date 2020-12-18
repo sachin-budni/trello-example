@@ -2,9 +2,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { AddTrelloListOfList, RemoveTrelloListOfList } from '../actions/trello.actions';
-import { RemoveTrelloList, UpdateTrelloList } from '../actions/trelloList.actions';
+import { AddTrelloListOfList, RemoveTrelloListOfList, UpdateTrelloListOfListSameList } from '../actions/trello.actions';
 import { CreateTrelloListComponent } from '../create-trello-list/create-trello-list.component';
 import { Trello } from '../models/trello.model';
 import { TrelloList } from '../models/trelloList.model';
@@ -52,7 +50,9 @@ export class TrelloListoflistComponent implements OnInit {
   drop({
     item,
     container,
-    previousContainer
+    previousContainer,
+    currentIndex,
+    previousIndex
   }: CdkDragDrop<any>) {
     let data: TrelloList = item.data;
     let prevId: number = previousContainer.data;
@@ -60,6 +60,10 @@ export class TrelloListoflistComponent implements OnInit {
     if (prevId !== newId) {
       this.store.dispatch(new AddTrelloListOfList(newId, data));
       this.store.dispatch(new RemoveTrelloListOfList(prevId, data.id));
+    } else {
+      console.log(currentIndex);
+      this.store.dispatch(new UpdateTrelloListOfListSameList(newId , currentIndex, previousIndex, data));
+      console.log(previousIndex);
     }
   }
 
