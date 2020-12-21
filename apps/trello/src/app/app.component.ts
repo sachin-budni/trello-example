@@ -1,6 +1,10 @@
 import { Component, Optional } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from './app.state';
 import { CreateTrelloComponent } from './create-trello/create-trello.component';
+import { selectVisibleBooks } from './models/trello.model';
 
 @Component({
   selector: 'trello-workspace-root',
@@ -9,10 +13,14 @@ import { CreateTrelloComponent } from './create-trello/create-trello.component';
 })
 export class AppComponent {
   title = 'trello';
-
-  constructor(private dialog: MatDialog) {}
+  trelloCards: Observable<any>
+  searchValue: string;
+  constructor(private dialog: MatDialog,private store: Store<AppState>) {}
 
   createTrello() {
     this.dialog.open(CreateTrelloComponent, { width: '300px' });
+  }
+  search() {
+    this.trelloCards = this.store.select(selectVisibleBooks(this.searchValue));
   } 
 }

@@ -113,9 +113,20 @@ ng affected:e2e
 <router-outlet></router-outlet> -->
 <div class="header">
   <div class="row space-btw center">
-    <button class="btn-t">
-      <mat-icon>home</mat-icon>
-    </button>
+    <div class="row">
+      <button class="btn-t">
+        <mat-icon>home</mat-icon>
+      </button>
+      <div class="search row">
+        <input type="text" [matAutocomplete]="auto" [(ngModel)]="searchValue" (keyup)="search()">
+        <mat-icon>search</mat-icon>
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of trelloCards | async" [value]="option.name">
+            {{option.name + ' - (' + option.listName + ')'}}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+    </div>
     <p class="header-line-name">Trello Board</p>
     <button class="btn-t" (click)="createTrello()">
       <mat-icon>add</mat-icon>

@@ -22,6 +22,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { CreateTrelloComponent } from './create-trello/create-trello.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CreateTrelloListComponent } from './create-trello-list/create-trello-list.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 // const routes: Routes = [
@@ -57,7 +58,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatFormFieldModule,
     MatToolbarModule,
     MatDialogModule,
-    DragDropModule
+    DragDropModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent],
