@@ -10,7 +10,6 @@ import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { TrelloListComponent } from './trello-list/trello-list.component';
 import { reducer } from './reducers/trello.reducer';
-import { reducerTrelloList } from './reducers/trelloList.reducer';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TrelloListoflistComponent } from './trello-listoflist/trello-listoflist.component';
 import { MatCardModule } from '@angular/material/card';

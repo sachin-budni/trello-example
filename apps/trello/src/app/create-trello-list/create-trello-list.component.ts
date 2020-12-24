@@ -6,7 +6,6 @@ import { AddTrelloListOfList, UpdateTrelloListOfList } from './../actions/trello
 import { AppState } from '../app.state';
 import { Trello } from '../models/trello.model';
 import { TrelloList } from '../models/trelloList.model';
-import { UpdateTrelloList } from '../actions/trelloList.actions';
 
 @Component({
   selector: 'trello-workspace-create-trello-list',
